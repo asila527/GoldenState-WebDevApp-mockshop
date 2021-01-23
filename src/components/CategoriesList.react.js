@@ -2,9 +2,14 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import { fetchProducts } from '../actions/productsActions'
 import { useSelector, useDispatch } from 'react-redux'
+import '../index.css'
 
 
 function CategoriesList ({ productData, fetchProducts }) {
+    function Capitalize(str){
+        return str.split(' ').map((str) => str.charAt(0).toUpperCase() + str.slice(1)).join(' ');
+        }
+    
     useEffect(() => {
         fetchProducts()
     }, [])
@@ -21,7 +26,12 @@ function CategoriesList ({ productData, fetchProducts }) {
             <div>
                 {productData && 
                     productData.products && 
-                    productData.products.map(product => <p key={product.id}>{product.category}</p>)
+                    productData.products.map(product => (
+                        <div>
+                            <img className='image' src={product.image}/>
+                            <p key={product.id}>{Capitalize(product.category)}</p>
+                        </div>
+                    ))
                 }
             </div>
         </div>
